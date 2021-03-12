@@ -1,4 +1,5 @@
 @echo off
+
 openfiles > NUL 2>&1 
 if NOT %ERRORLEVEL% EQU 0 goto NotAdmin
 
@@ -9,19 +10,21 @@ setlocal
 set from=
 set to=
 
-echo "ˆÚ“®‚µ‚½‚¢ƒtƒHƒ‹ƒ_‚ðŽw’è‚µ‚Ä‚­‚¾‚³‚¢"
+echo "ç§»å‹•ã™ã‚‹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’æŒ‡å®šã—ã¦ãã ã•ã„"
 set /P from=
-echo "ˆÚ“®æƒtƒHƒ‹ƒ_‚ðŽw’è‚µ‚Ä‚­‚¾‚³‚¢"
+echo "ç§»å‹•å…ˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’æŒ‡å®šã—ã¦ãã ã•ã„"
 set /P to=
 
 xcopy /E /I /Q %from% %to%
-xcopy /E /I /Q %from% %from%.bak
 
-rmdir /s /q  %from%
+for /F "delims=" %%A in ("%from%") do set name=%%~nxA
+
+rename %from% %name%.bak
+
 mklink /D %from% %to%
 
 goto start
 
 :NotAdmin 
-echo "ŠÇ—ŽÒŒ ŒÀ‚ÅŽÀs‚µ‚Ä‚­‚¾‚³‚¢"
+echo "ç®¡ç†è€…æ¨©é™ã§å®Ÿè¡Œã—ã¦ãã ã•ã„"
 :End
